@@ -1,0 +1,44 @@
+/*
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isHandset$ | async">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a routerLink="/">Resident Portal</a>
+  <span class="fill"></span>
+  <mat-icon class="profile-icon" [matMenuTriggerFor]="menu">
+    account_circle
+  </mat-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/profile" routerLinkActive="active">
+      Profile
+    </button>
+    <button mat-menu-item routerLink="/login" routerLinkActive="active">
+        Logout
+      </button>
+  </mat-menu>
+</mat-toolbar>
+
+*/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+mat-toolbar {
+  justify-content: space-between;
+}
+
+.profile-icon {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+
+.mat-menu-item:hover {
+  background-color: #e0e0e0;
+}
+
+
+.profile-icon mat-icon {
+    font-size: 50px;
+}

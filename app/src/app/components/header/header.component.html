@@ -1,0 +1,29 @@
+<!-- create me a angular material header where there is name in left side or logo then the right most are profile logo should be when i click the logo it will drop down the profile or logout -->
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isHandset$ | async">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a routerLink="/">Resident Portal</a>
+  <span class="fill"></span>
+  <mat-icon class="profile-icon" [matMenuTriggerFor]="menu">
+    account_circle
+  </mat-icon>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngIf="!isLoggedIn">
+      <button mat-menu-item routerLink="/login" routerLinkActive="active">
+        Login
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <!-- <button mat-menu-item routerLink="/admin" routerLinkActive="active">
+        Profile
+      </button> -->
+      <button mat-menu-item (click)="logout()"
+              routerLinkActive="active">
+        Logout
+      </button>
+
+    </ng-container>
+  </mat-menu>
+</mat-toolbar>
+

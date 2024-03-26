@@ -1,0 +1,95 @@
+<app-header></app-header>
+
+<mat-grid-list cols="1" rowHeight="50%" style="padding-top: 1rem">
+  <mat-grid-tile>
+    <mat-card
+      style="display: flex; align-items: center; justify-content: center"
+    >
+      <mat-card-header>
+        <mat-card-title> Maintenance Request Form </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content
+        style="display: flex; align-items: center; justify-content: center"
+      >
+        <form  [formGroup]="form" (submit)="executeAction()" class="maint-form" style="display: block; margin: 0 auto">
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Apartment Unit</mat-label>
+              <input matInput type="number" formControlName="unitNumber" placeholder="Unit" />
+              <mat-icon matSuffix>apartment</mat-icon>
+              <mat-error *ngIf="form.controls['unitNumber'].hasError('whitespace') && form.controls['unitNumber'].invalid  &&  (form.controls['unitNumber'].dirty || form.controls['unitNumber'].touched)">
+                Apartment cannot be empty or blank
+              </mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Requester Name</mat-label>
+              <input matInput type="text" formControlName="name" placeholder="Name" />
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="form.controls['name'].hasError('whitespace') && form.controls['unitNumber'].invalid  &&  (form.controls['name'].dirty || form.controls['name'].touched)">
+                Name cannot be empty or blank
+              </mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Requester Email</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="Email" />
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Service Type</mat-label>
+              <mat-select formControlName="serviceType">
+                <mat-option  *ngFor="let serviceType of serviceTypes"
+                [value]="serviceType" aria-placeholder="Service Type">
+                  {{ serviceType }}
+                </mat-option>
+              </mat-select>
+              <mat-icon matSuffix>settings</mat-icon>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Summary</mat-label>
+              <input matInput type="text" formControlName="summary" placeholder="Summary"/>
+              <mat-icon matSuffix>short_text</mat-icon>
+              <mat-error *ngIf="form.controls['summary'].hasError('minlength') && form.controls['unitNumber'].invalid  &&  (form.controls['summary'].dirty || form.controls['summary'].touched)">
+                Summary must be at least 5 characters long.
+              </mat-error>
+              <mat-error *ngIf="form.controls['summary'].hasError('whitespace') && form.controls['unitNumber'].invalid  &&  (form.controls['summary'].dirty || form.controls['summary'].touched)">
+                Summary cannot be empty or blank
+              </mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Details</mat-label>
+              <textarea matInput formControlName="details" placeholder="Details"></textarea>
+              <mat-icon matSuffix>edit_note</mat-icon>
+              <mat-error *ngIf="form.controls['details'].hasError('minlength') && form.controls['unitNumber'].invalid  &&  (form.controls['details'].dirty || form.controls['details'].touched)">
+                Details must be at least 5 characters long.
+              </mat-error>
+              <mat-error *ngIf="form.controls['details'].hasError('whitespace') && form.controls['unitNumber'].invalid  &&  (form.controls['details'].dirty || form.controls['details'].touched)">
+                Details cannot be empty or blank
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p style="text-align: center; padding-top: 2%">
+            <button mat-raised-button color="accent" type="submit">
+              Submit
+            </button>
+          </p>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

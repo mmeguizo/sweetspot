@@ -1,0 +1,157 @@
+<app-header></app-header>
+<mat-card style="width: 100%; max-width: 100vw">
+  <mat-card-header
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 16px;
+    "
+  >
+    <mat-card-title style="margin: 0 auto">Maintenance Request</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="padding: 24px">
+    <div class="mat-elevation-z8">
+      <ng-container *ngIf="loading; else table">
+        <mat-spinner style="margin: 16px auto;width: 64px;height: 89px;">
+        </mat-spinner>
+        <p style="text-align: center; margin: 16px auto;">Fetching Maintenance...</p>
+      </ng-container>
+      <ng-template #table>
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="ID">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="No."
+              #th
+            >
+              No.
+            </th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="unitNumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Unit Number"
+              #th
+            >
+              Unit Number
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.unitNumber }}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="name">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Name"
+              #th
+            >
+              Name
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="email">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Email"
+              #th
+            >
+              Email
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="serviceType">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Service Type"
+              #th
+            >
+              Service Type
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.serviceType }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="summary">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Summary"
+              #th
+            >
+              Summary
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.summary }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="details">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Details"
+              #th
+            >
+              Details
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.details }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="options">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Options"
+              #th
+            >
+              Options
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <a mat-icon-button matTooltip="Edit" matTooltipPosition="above">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a mat-icon-button matTooltip="Delete" matTooltipPosition="above">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </ng-template>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of Maintenance request"
+      >
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -55,7 +55,6 @@ import { PortalModule } from '@angular/cdk/portal';
  * NgModule that includes all Material modules that are required to serve the demo-app.
  */
 @NgModule({
-    declarations: [],
     exports: [
         MatAutocompleteModule,
         MatButtonModule,
@@ -99,6 +98,6 @@ import { PortalModule } from '@angular/cdk/portal';
         OverlayModule,
         PlatformModule,
         PortalModule
-    ]
+    ],
 })
 export class SharedModule { }

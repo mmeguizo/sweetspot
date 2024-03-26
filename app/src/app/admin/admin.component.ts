@@ -1,11 +1,13 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { MaintenanceService } from '../services/maintenance.service';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { Subject } from 'rxjs/internal/Subject';
 import { NotificationService } from '../services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfimDialogComponent } from '../components/confim-dialog/confim-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -31,18 +33,18 @@ export class AdminComponent implements AfterViewInit {
   public loading: boolean = false;
   private getSubscription = new Subject<void>();
   private firstTime = true;
-  public data:any;
+  public data: any;
   constructor(
     public maintenance: MaintenanceService,
-    public notify: NotificationService
-  ) {
-  }
+    public notify: NotificationService,
+    public dialog: MatDialog
+  ) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.dataSource.paginator = this.paginator; 
-      this.dataSource.sort = this.sort; 
-    }); 
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
     if(this.firstTime){
       this.getAllMaintenance();
       this.firstTime = false;
@@ -52,7 +54,7 @@ export class AdminComponent implements AfterViewInit {
   getAllMaintenance() {
     this.loading = true;
     this.maintenance
-      .getAllMaintenance()
+      .getAllMaintenances()
       .pipe(takeUntil(this.getSubscription))
       .subscribe((data: any) => {
         if (data.success) {
@@ -64,7 +66,7 @@ export class AdminComponent implements AfterViewInit {
               if (!found) {
                 temp.push(item);
               } else {
-                this.data = this.data.filter((x : any) => x.id !== item.id);
+                this.data = this.data.filter((x: any) => x.id !== item.id);
               }
             });
             this.dataSource.data = [...this.dataSource.data, ...temp];
@@ -77,5 +79,45 @@ export class AdminComponent implements AfterViewInit {
         }
       });
   }
-}
 
+  editEntry(id: string) {
+    console.log({ editing: id });
+  }
+  deleteEntry(id: string, name: string) {
+    console.log({ deleting: id });
+    this.openConfirmationDialog(id, name);
+  }
+
+  openConfirmationDialog(id: string, name: string) {
+    const dialogRef = this.dialog.open(ConfimDialogComponent, {
+      data: {
+        message: `Are you sure you want to delete this request from ${name} ?`,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        console.log('said yes');
+        this.loading = true;
+        this.maintenance
+          .closeMaintenance(id)
+          .pipe(takeUntil(this.getSubscription))
+          .subscribe((data: any) => {
+            console.log(id);
+            if (data.success) {
+              this.dataSource.data = this.dataSource.data.filter(
+                (item) => item._id !== id
+              );
+              console.log(this.dataSource.data);
+              this.loading = false;
+              this.notify.notification$.next(data.message);
+            } else {
+              this.notify.notification$.next(data.message);
+            }
+            this.loading = false;
+          });
+      } else {
+        console.log('said no');
+      }
+    });
+  }
+}

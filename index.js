@@ -13,6 +13,7 @@ const http = require("http").Server(app);
 
 const users = require("./routes/users")(router);
 const maintenance = require("./routes/maintenance")(router);
+const api = require("./routes/api")(router);
 
 mongoose
   .connect(config.uri, config.options)
@@ -34,6 +35,7 @@ app.use(errorHandler());
 
 app.use("/users", users);
 app.use("/maintenance", maintenance);
+app.use("/api", api);
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "/app/dist/index.html"));

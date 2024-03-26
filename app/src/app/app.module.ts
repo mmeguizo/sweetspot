@@ -17,10 +17,17 @@ import { MaterialModule } from './material/material.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './guard/auth.guard';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfimDialogComponent } from './components/confim-dialog/confim-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, AdminComponent, UsersComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    AdminComponent,
+    UsersComponent,
+    ConfimDialogComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,7 +39,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatMenuModule,
     MaterialModule,
     SharedModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

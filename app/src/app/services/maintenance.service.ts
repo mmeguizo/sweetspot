@@ -8,13 +8,21 @@ import { MaintenanceRequest } from '../../lib/api-interfaces';
 })
 export class MaintenanceService {
   public options: any;
+  public auth: any;
 
   constructor(public cs: ConnectionService, private http: HttpClient) {}
 
   createHeaders() {
+    this.loadToken();
     this.options = new HttpHeaders({
       'Content-Type': 'application/json',
+      'authorization': this.auth
     });
+  }
+
+  loadToken() {
+    const token = localStorage.getItem('token');
+    this.auth = token;
   }
 
   addMaintenance(data: MaintenanceRequest) {
@@ -31,6 +39,18 @@ export class MaintenanceService {
   getAllMaintenance() {
     this.createHeaders();
     return this.http.get(this.cs.domain + '/maintenance/getAllMaintenance/', {
+      headers: this.options,
+    });
+  }
+  getAllMaintenances() {
+    this.createHeaders();
+    return this.http.get(this.cs.domain + '/api/maintenance-requests/', {
+      headers: this.options,
+    });
+  }
+  closeMaintenance(id : string) {
+    this.createHeaders();
+    return this.http.put(this.cs.domain + `/api/maintenance-requests/${id}/close`, {
       headers: this.options,
     });
   }

@@ -16,6 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MaterialModule } from './material/material.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthGuard } from './guard/auth.guard';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, AdminComponent, UsersComponent],
@@ -30,6 +32,7 @@ import { AuthGuard } from './guard/auth.guard';
     MatMenuModule,
     MaterialModule,
     SharedModule,
+    MatSortModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

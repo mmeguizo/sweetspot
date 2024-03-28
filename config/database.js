@@ -7,6 +7,6 @@ const hash = crypto
 
 module.exports = {
   // uri: process.env.DB_URL,
-  uri: process.env.DB_LOCAL,
+  uri: "mongodb+srv://meguizo:mongolDB@cluster0.zwkop.mongodb.net/suitespot?retryWrites=true&w=majority",
   secret: hash,
 };

@@ -43,6 +43,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/app/dist/index.html"));
 });
 
-app.listen(PORT || 52847, () => {
+app.listen(PORT, () => {
   console.log("Connected on port:", PORT);
 });

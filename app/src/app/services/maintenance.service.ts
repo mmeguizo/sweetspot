@@ -13,10 +13,9 @@ export class MaintenanceService {
   constructor(public cs: ConnectionService, private http: HttpClient) {}
 
   createHeaders() {
-    this.loadToken();
+    // this.loadToken();
     this.options = new HttpHeaders({
       'Content-Type': 'application/json',
-      'authorization': this.auth
     });
   }
 

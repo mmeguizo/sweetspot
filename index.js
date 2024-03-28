@@ -33,13 +33,15 @@ app.use(express.urlencoded({ limit: "20mb", extended: false }));
 app.use(allowCrossDomain);
 app.use(errorHandler());
 
+app.use(express.static(__dirname + "/app/dist/"));
+
 app.use("/users", users);
 app.use("/maintenance", maintenance);
 app.use("/api", api);
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/app/dist/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/app/dist/index.html"));
+});
 
 app.listen(PORT || 52847, () => {
   console.log("Connected on port:", PORT);

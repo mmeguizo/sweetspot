@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
           this.loading = false;
           this.notLoading = true;
           this.auth.storeUserData(data.token);
-          console.log(data);
          
           if (this.auth.AuthGuard()) {
             this.router.navigate(['admin']);

@@ -81,10 +81,8 @@ export class AdminComponent implements AfterViewInit {
   }
 
   editEntry(id: string) {
-    console.log({ editing: id });
   }
   deleteEntry(id: string, name: string) {
-    console.log({ deleting: id });
     this.openConfirmationDialog(id, name);
   }
 
@@ -102,12 +100,10 @@ export class AdminComponent implements AfterViewInit {
           .closeMaintenance(id)
           .pipe(takeUntil(this.getSubscription))
           .subscribe((data: any) => {
-            console.log(id);
             if (data.success) {
               this.dataSource.data = this.dataSource.data.filter(
                 (item) => item._id !== id
               );
-              console.log(this.dataSource.data);
               this.loading = false;
               this.notify.notification$.next(data.message);
             } else {

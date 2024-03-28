@@ -13,10 +13,8 @@ const userSchema = new Schema({
 });
 
 userSchema.pre("save", function (next) {
-  console.log("hashing password");
 
   if (!this.isModified("password")) {
-    console.log("isModified");
     return next();
   } else {
     bcrypt.genSalt(10, (err, salt) => {

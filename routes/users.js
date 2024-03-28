@@ -103,8 +103,6 @@ module.exports = (router) => {
 
       const { password, ...userData } = deletedUser._doc;
 
-      console.log(password);
-
       res.json({
         success: true,
         message: "User deleted successfully",
